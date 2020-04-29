@@ -6,6 +6,12 @@
 /.pnp
 .pnp.js
 
+/tmp/*
+!/tmp/.gitkeep
+
+*/tmp/*
+!*/tmp/.gitkeep
+
 # testing
 /coverage
 
