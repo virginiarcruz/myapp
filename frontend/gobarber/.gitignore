@@ -2,15 +2,8 @@
 
 # dependencies
 /node_modules
-*/node_modules
 /.pnp
 .pnp.js
-
-/tmp/*
-!/tmp/.gitkeep
-
-*/tmp/*
-!*/tmp/.gitkeep
 
 # testing
 /coverage
