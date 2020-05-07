@@ -1,5 +1,9 @@
-import * as React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 
-const Input: React.FC = () => <input />;
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  name: string;
+}
+
+const Input: React.FC<InputProps> = () => <input />;
 
 export default Input;
