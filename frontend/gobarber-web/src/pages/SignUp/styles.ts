@@ -17,27 +17,27 @@ export const Content = styled.div`
   place-content: center;
   max-width: 700px;
   width: 100%;
-`;
 
-export const Form = styled.form`
-  margin: 80px auto;
-  width: 340px;
-  text-align: center;
-
-  h1 {
-    margin-bottom: 24px;
-  }
-
-  a {
-    color: ${grayLighter};
-    display: block;
+  form {
+    margin: 80px auto;
+    width: 340px;
     text-align: center;
-    margin-top: 24px;
-    text-decoration: none;
-    transition: color 0.2s;
-    cursor: pointer;
-    &:hover {
-      filter: brightness(85%);
+
+    h1 {
+      margin-bottom: 24px;
+    }
+
+    a {
+      color: ${grayLighter};
+      display: block;
+      text-align: center;
+      margin-top: 24px;
+      text-decoration: none;
+      transition: color 0.2s;
+      cursor: pointer;
+      &:hover {
+        filter: brightness(85%);
+      }
     }
   }
 `;

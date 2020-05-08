@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "unform": "^1.2.3"
+  },
+  "dependencies": {
+    "@unform/core": "^2.1.0",
+    "@unform/web": "^2.1.0"
+  }
+}
