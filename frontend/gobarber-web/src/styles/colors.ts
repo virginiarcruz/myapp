@@ -2,15 +2,13 @@ export const purple = '#7D40E7';
 export const purpleLight = '#F4EFFC';
 export const purpleDark = '#A28FD0';
 
-export const orange = '#CB946C';
-export const orangeLight = '#FCF4EE';
+export const orange = '#ff9000';
 
 export const white = '#FFFFFF';
 
-export const gray = '#999999';
-export const grayDarkPrimary = '#666666';
-export const grayDark = '#444444';
-export const grayLight = '#DDDDDD';
-export const grayLighter = '#F5F5F5';
+export const gray = '#312e38';
+export const grayDark = '#232129';
+export const grayLight = '#666360';
+export const grayLighter = '#f4ede8';
 
 export const red = '#DE3B3B';

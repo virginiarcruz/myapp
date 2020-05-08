@@ -2,6 +2,8 @@ import styled from 'styled-components/macro';
 
 import signInBackgroundImg from '../../assets/sign-in-background.png';
 
+import { grayLighter, orange } from '../../styles/colors';
+
 export const Container = styled.main`
   height: 100vh;
 
@@ -26,42 +28,8 @@ export const Form = styled.form`
     margin-bottom: 24px;
   }
 
-  input {
-    background: #232129;
-    border-radius: 10px;
-    border: 2px solid #232129;
-    padding: 16px;
-    width: 100%;
-    color: #f4ede8;
-
-    &::placeholder {
-      color: #666360;
-    }
-
-    & + input {
-      margin-top: 8px;
-    }
-  }
-
-  button {
-    background: #ff9000;
-    height: 56px;
-    border-radius: 10px;
-    border: 0;
-    padding: 0 16px;
-    color: #312e38;
-    font-weight: 500;
-    margin-top: 16px;
-    width: 100%;
-    transition: background-color 0.2s;
-    cursor: pointer;
-
-    &:hover {
-      filter: brightness(95%);
-    }
-  }
   a {
-    color: #f4ede8;
+    color: ${grayLighter};
     display: block;
     text-align: center;
     margin-top: 24px;
@@ -75,7 +43,7 @@ export const Form = styled.form`
 `;
 
 export const LinkContent = styled.a`
-  color: #ff9000;
+  color: ${orange};
   margin-top: 24px;
   text-decoration: none;
   transition: color 0.2s;
