@@ -1,8 +1,12 @@
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
+import { grayLight, grayLighter, grayDark, orange } from '../../styles/colors';
 
-import { grayLight, grayLighter, grayDark } from '../../styles/colors';
+interface ContainerProps {
+  isFocused: boolean;
+  isFilled: boolean;
+}
 
-export const Container = styled.div`
+export const Container = styled.div<ContainerProps>`
   background: ${grayDark};
   border-radius: 10px;
   border: 2px solid ${grayDark};
@@ -16,6 +20,19 @@ export const Container = styled.div`
   & + div {
     margin-top: 8px;
   }
+
+  ${({ isFocused }) =>
+    isFocused &&
+    css`
+      border-color: ${orange};
+      color: ${orange};
+    `}
+
+  ${({ isFilled }) =>
+    isFilled &&
+    css`
+      color: ${orange};
+    `}
 
   input {
     flex: 1;

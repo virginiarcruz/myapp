@@ -1,8 +1,9 @@
 import React from 'react';
+import { Form } from '@unform/web';
 
 import logoImg from '../../assets/logo.svg';
 
-import { Container, Content, Background, Form, LinkContent } from './styles';
+import { Container, Content, Background, LinkContent } from './styles';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
 import Input from '../../components/Input';
