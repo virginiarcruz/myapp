@@ -12,3 +12,10 @@ export const grayLight = '#666360';
 export const grayLighter = '#f4ede8';
 
 export const red = '#DE3B3B';
+export const redLight = '#fddede';
+
+export const blue = '#3172b7';
+export const blueLight = '#ebf8ff';
+
+export const green = '#24656a';
+export const greenLight = '#e6fffa';
