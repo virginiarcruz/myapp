@@ -1,4 +1,6 @@
 import styled, { css } from 'styled-components/macro';
+import { animated } from 'react-spring';
+
 import {
   blue,
   blueLight,
@@ -28,7 +30,7 @@ const toastTypeVariations = {
   `,
 };
 
-export const Container = styled.div<ToastProps>`
+export const Container = styled(animated.div)<ToastProps>`
   width: 360px;
 
   position: relative;
