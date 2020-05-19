@@ -50,6 +50,8 @@ const SignIn: React.FC = () => {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
           formRef.current?.setErrors(errors);
+
+          return;
         }
 
         addToast({
@@ -80,7 +82,7 @@ const SignIn: React.FC = () => {
           <Button type="submit"> Entrar </Button>
           <a href="forgot">Esqueci minha senha</a>
         </Form>
-        <LinkContent href="login">
+        <LinkContent to="signup">
           <FiLogIn />
           Criar conta
         </LinkContent>

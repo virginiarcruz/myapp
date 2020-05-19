@@ -1,12 +1,4 @@
 import styled from 'styled-components/macro';
-import {
-  blue,
-  blueLight,
-  green,
-  greenLight,
-  red,
-  redLight,
-} from '../../styles/colors';
 
 export const Container = styled.div`
   position: absolute;

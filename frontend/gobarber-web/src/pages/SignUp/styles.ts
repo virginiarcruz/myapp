@@ -1,4 +1,5 @@
-import styled from 'styled-components/macro';
+import styled, { keyframes } from 'styled-components/macro';
+import { Link } from 'react-router-dom';
 
 import signUpBackgroundImg from '../../assets/sign-up-background.png';
 
@@ -11,12 +12,25 @@ export const Container = styled.main`
   align-items: stretch;
 `;
 
+const appearFromRight = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
   place-content: center;
   max-width: 700px;
   width: 100%;
+
+  animation: ${appearFromRight} 1s;
 
   form {
     margin: 80px auto;
@@ -42,7 +56,7 @@ export const Content = styled.div`
   }
 `;
 
-export const LinkContent = styled.a`
+export const LinkContent = styled(Link)`
   color: ${grayLighter};
   margin-top: 24px;
   text-decoration: none;
