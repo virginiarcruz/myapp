@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@unform/core": "^2.1.0",
+    "@unform/mobile": "^2.1.0",
+    "react-native-iphone-x-helper": "^1.2.1"
+  }
+}
