@@ -21,6 +21,7 @@
     "pq": "^0.0.3",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.21.12",
+    "tsyringe": "^4.3.0",
     "typeorm": "^0.2.24",
     "uuidv4": "^6.0.7"
   },
