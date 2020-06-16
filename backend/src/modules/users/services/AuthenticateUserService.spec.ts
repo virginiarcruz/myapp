@@ -1,23 +1,23 @@
 import AppError from '@shared/errors/AppError';
 
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
-// import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
+import FakeHashProvider from '../providers/HashProvider/fakes/FakeHashProvider';
 import AuthenticateUserService from './AuthenticateUserService';
 import CreateUserService from './CreateUserService';
 
 describe('AuthenticateUser', () => {
   it('should be able to authenticate', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
-    // const fakeHashProvider = new FakeHashProvider();
+    const fakeHashProvider = new FakeHashProvider();
 
     const createUser = new CreateUserService(
       fakeUsersRepository,
-      // fakeHashProvider,
+      fakeHashProvider,
     );
 
     const authenticateUser = new AuthenticateUserService(
       fakeUsersRepository,
-      // fakeHashProvider,
+      fakeHashProvider,
     );
 
     const user = await createUser.execute({
@@ -37,11 +37,11 @@ describe('AuthenticateUser', () => {
 
   it('should NOT be able to authenticate with non existing user', async () => {
     const fakeUsersRepository = new FakeUsersRepository();
-    // const fakeHashProvider = new FakeHashProvider();
+    const fakeHashProvider = new FakeHashProvider();
 
     const authenticateUser = new AuthenticateUserService(
       fakeUsersRepository,
-      // fakeHashProvider,
+      fakeHashProvider,
     );
 
     expect(
@@ -58,12 +58,12 @@ describe('AuthenticateUser', () => {
 
     const createUser = new CreateUserService(
       fakeUsersRepository,
-      // fakeHashProvider,
+      fakeHashProvider,
     );
 
     const authenticateUser = new AuthenticateUserService(
       fakeUsersRepository,
-      // fakeHashProvider,
+      fakeHashProvider,
     );
 
     await createUser.execute({
