@@ -2,7 +2,7 @@ import AppError from '@shared/errors/AppError';
 
 import FakeStorageProvider from '@shared/container/providers/StorageProvider/fakes/FakeStorageProvider';
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
-import UpdateUserAvatarService from './UpdateUserAvatarService';
+import UpdateUserAvatarService from './UpdateAvatarService';
 
 describe('UpdateUserAvatarService', () => {
   it('should be able to create a new avatar', async () => {
