@@ -1,17 +1,14 @@
 import { Router } from 'express';
-import { parseISO } from 'date-fns';
-import { container } from 'tsyringe';
 
-import CreateAppointmentService from '@modules/appointments/services/CreateAppointmentService';
-
-import ensureAutheticated from '@shared/infra/http/middlewares/ensureAuthenticated';
-import AppointmensController from '../controllers/AppointmentsController';
+import ensureAuthenticated from '@modules/users/infra/http/middlewares/ensureAuthenticated';
+import AppointmentsController from '../controllers/AppointmentsController';
 
 const appointmentsRouter = Router();
-const appointmensController = new AppointmensController();
+const appointmentsController = new AppointmentsController();
 
-appointmentsRouter.use(ensureAutheticated);
+appointmentsRouter.use(ensureAuthenticated);
 
-appointmentsRouter.post('/', appointmensController.create);
+// Rota POST
+appointmentsRouter.post('/', appointmentsController.create);
 
 export default appointmentsRouter;
