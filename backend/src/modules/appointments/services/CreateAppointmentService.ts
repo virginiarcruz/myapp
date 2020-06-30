@@ -21,8 +21,8 @@ class CreateAppointmentService {
 
   public async execute({
     date,
-    user_id,
     provider_id,
+    user_id,
   }: IRequestDTO): Promise<Appointment> {
     const appointmentDate = startOfHour(date);
 
