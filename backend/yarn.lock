@@ -578,6 +578,13 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/bson@*":
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/@types/bson/-/bson-4.0.2.tgz#7accb85942fc39bbdb7515d4de437c04f698115f"
+  integrity sha512-+uWmsejEHfmSjyyM/LkrP0orfE2m5Mx9Xel4tXNeqi1ldK5XMQcDsFkBmLDtuyKUbxj2jGDo0H240fbCRJZo7Q==
+  dependencies:
+    "@types/node" "*"
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -589,6 +596,13 @@
   integrity sha512-2+FrkXY4zllzTNfJth7jOqEHC+enpLeGslEhpnTAkg21GkRrWV4SsAtqchtT4YS9/nODBU2/ZfsBY2X4J/dX7A==
   dependencies:
     "@types/node" "*"
+
+"@types/cors@^2.8.6":
+  version "2.8.6"
+  resolved "https://registry.yarnpkg.com/@types/cors/-/cors-2.8.6.tgz#cfaab33c49c15b1ded32f235111ce9123009bd02"
+  integrity sha512-invOmosX0DqbpA+cE2yoHGUlF/blyf7nB0OGYBBiH27crcVm5NmFaZkLP4Ta1hGaesckCi5lVLlydNJCxkTOSg==
+  dependencies:
+    "@types/express" "*"
 
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
@@ -669,6 +683,14 @@
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
   integrity sha512-FwI9gX75FgVBJ7ywgnq/P7tw+/o1GUbtP0KzbtusLigAOgIgNISRK0ZPl4qertvXSIE8YbsVJueQ90cDt9YYyw==
+
+"@types/mongodb@^3.5.25":
+  version "3.5.25"
+  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.5.25.tgz#ab187db04d79f8e3f15af236327dc9139d9d4736"
+  integrity sha512-2H/Owt+pHCl9YmBOYnXc3VdnxejJEjVdH+QCWL5ZAfPehEn3evygKBX3/vKRv7aTwfNbUd0E5vjJdQklH/9a6w==
+  dependencies:
+    "@types/bson" "*"
+    "@types/node" "*"
 
 "@types/multer@^1.4.3":
   version "1.4.3"
@@ -1765,6 +1787,11 @@ dotenv@^6.2.0:
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
   integrity sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
+
+dotenv@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
+  integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
 dottie@^2.0.0:
   version "2.0.2"
@@ -4586,6 +4613,11 @@ range-parser@~1.2.1:
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
   integrity sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==
 
+rate-limiter-flexible@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/rate-limiter-flexible/-/rate-limiter-flexible-2.1.7.tgz#5594818c92abac1229ae512cac6a604b39c96b2b"
+  integrity sha512-oq1fBLuMy8RGzs0klc+8jIB2I6D8MIwewdnkebvXIB/WSt7jWKXAf1rlgaZCYCnLO6q9A2rFFKma+QusDANilA==
+
 raw-body@2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/raw-body/-/raw-body-2.4.0.tgz#a1ce6fb9c9bc356ca52e89256ab59059e13d0332"
@@ -4702,7 +4734,7 @@ redis-parser@^3.0.0:
   dependencies:
     redis-errors "^1.0.0"
 
-"redis@>= 0.8.2":
+"redis@>= 0.8.2", redis@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/redis/-/redis-3.0.2.tgz#bd47067b8a4a3e6a2e556e57f71cc82c7360150a"
   integrity sha512-PNhLCrjU6vKVuMOyFu7oSP296mwBkcE6lrAjruBYG5LgdSqtRBoVQIylrMyVZD/lkF24RSNNatzvYag6HRBHjQ==
