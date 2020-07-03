@@ -1,6 +1,6 @@
-import I from '../models/I';
+import IStorageProvider from '../models/IStorageProvider';
 
-export default class Fake implements I {
+export default class FakeStorageProvider implements IStorageProvider {
   private storage: string[] = [];
 
   public async saveFile(file: string): Promise<string> {
