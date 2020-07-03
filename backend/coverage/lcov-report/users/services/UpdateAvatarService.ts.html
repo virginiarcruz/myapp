@@ -154,7 +154,7 @@
 <span class="cstat-no" title="statement not covered" >import AppError from '@shared/errors/AppError';</span>
 &nbsp;
 import User from '@modules/users/infra/typeorm/entities/User';
-import IStorageProvider from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import I from '@shared/container/providers//models/I';
 import IUsersRepository from '../repositories/IUsersRepository';
 &nbsp;
 interface IRequestDTO {
@@ -168,8 +168,8 @@ interface IRequestDTO {
     @inject('UsersRepository')
     private <span class="cstat-no" title="statement not covered" >usersRepository: IUsersRepository,</span>
 &nbsp;
-    @inject('StorageProvider')
-    private <span class="cstat-no" title="statement not covered" >storageProvider: IStorageProvider,</span>
+    @inject('')
+    private <span class="cstat-no" title="statement not covered" >: I,</span>
   ) {}
 &nbsp;
 <span class="fstat-no" title="function not covered" >  public async <span class="cstat-no" title="statement not covered" >e</span>xecute({</span>
@@ -183,10 +183,10 @@ interface IRequestDTO {
     }
 &nbsp;
     if (<span class="cstat-no" title="statement not covered" >user.</span>avatar) {
-<span class="cstat-no" title="statement not covered" >      await this.storageProvider.deleteFile(user.avatar);</span>
+<span class="cstat-no" title="statement not covered" >      await this..deleteFile(user.avatar);</span>
     }
 &nbsp;
-    const <span class="cstat-no" title="statement not covered" >filename = <span class="cstat-no" title="statement not covered" >await this.storageProvider.saveFile(avatarFilename);</span></span>
+    const <span class="cstat-no" title="statement not covered" >filename = <span class="cstat-no" title="statement not covered" >await this..saveFile(avatarFilename);</span></span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    user.avatar = filename;</span>
 &nbsp;
