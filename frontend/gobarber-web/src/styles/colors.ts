@@ -8,7 +8,10 @@ export const white = '#FFFFFF';
 
 export const gray = '#312e38';
 export const grayDark = '#232129';
+export const grayDarken = '#28262e';
 export const grayLight = '#666360';
+export const grayMedium = '#999591';
+export const grayHigh = '#3e3b47';
 export const grayLighter = '#f4ede8';
 
 export const red = '#DE3B3B';
