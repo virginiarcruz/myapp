@@ -1,4 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import { isToday, format, parseISO, isAfter } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 
@@ -25,16 +27,30 @@ interface MonthAvailabilityItem {
   available: boolean;
 }
 
+interface Appointment {
+  id: string;
+  date: string;
+  hourFormatted: string;
+  user: {
+    name: string;
+    avatar_url: string;
+  };
+}
+
 const Dashboard: React.FC = () => {
+  const { signOut, user } = useAuth();
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());
+
   const [monthAvailability, setMonthAvailability] = useState<
     MonthAvailabilityItem[]
   >([]);
-  const { signOut, user } = useAuth();
+
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
 
   const handleDateChange = useCallback((day: Date, modifiers: DayModifiers) => {
-    if (modifiers.available) {
+    if (modifiers.available && !modifiers.disabled) {
       setSelectedDate(day);
     }
   }, []);
@@ -45,7 +61,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     api
-      .get(`/providers/${user.id}/month.availability`, {
+      .get(`/providers/${user.id}/month-availability`, {
         params: {
           year: currentMonth.getFullYear(),
           month: currentMonth.getMonth() + 1,
@@ -54,7 +70,27 @@ const Dashboard: React.FC = () => {
       .then(response => {
         setMonthAvailability(response.data);
       });
-  }, [currentMonth]);
+  }, [currentMonth, user.id]);
+
+  useEffect(() => {
+    api
+      .get<Appointment[]>('/appointments/me', {
+        params: {
+          year: selectedDate.getFullYear(),
+          month: selectedDate.getMonth() + 1,
+          day: selectedDate.getDate(),
+        },
+      })
+      .then(response => {
+        const appointmentsFormatted = response.data.map(appointment => {
+          return {
+            ...appointment,
+            hourFormatted: format(parseISO(appointment.date), 'HH:mm'),
+          };
+        });
+        setAppointments(appointmentsFormatted);
+      });
+  }, [selectedDate]);
 
   const disableDays = useMemo(() => {
     const dates = monthAvailability
@@ -62,12 +98,45 @@ const Dashboard: React.FC = () => {
       .map(monthDay => {
         const year = currentMonth.getFullYear();
         const month = currentMonth.getMonth();
-
         return new Date(year, month, monthDay.day);
       });
 
     return dates;
-  }, [currentMonth, monthAvailability]);
+  }, [monthAvailability, currentMonth]);
+
+  const selectDateAsText = useMemo(() => {
+    return format(selectedDate, "'Dia' dd 'de' MMMM", {
+      locale: ptBR,
+    });
+  }, [selectedDate]);
+
+  const selectedWeekDay = useMemo(() => {
+    const diaSemana = format(selectedDate, 'cccc', {
+      locale: ptBR,
+    });
+    if (diaSemana !== 'sábado' && diaSemana !== 'domingo') {
+      return `${diaSemana}-feira`;
+    }
+    return diaSemana;
+  }, [selectedDate]);
+
+  const morningAppointments = useMemo(() => {
+    return appointments.filter(appointment => {
+      return parseISO(appointment.date).getHours() < 12;
+    });
+  }, [appointments]);
+
+  const afternoonAppointments = useMemo(() => {
+    return appointments.filter(appointment => {
+      return parseISO(appointment.date).getHours() >= 12;
+    });
+  }, [appointments]);
+
+  const nextAppointment = useMemo(() => {
+    return appointments.find(appointment => {
+      return isAfter(parseISO(appointment.date), new Date());
+    });
+  }, [appointments]);
 
   return (
     <Container>
@@ -82,7 +151,7 @@ const Dashboard: React.FC = () => {
             />
 
             <div>
-              <span>Bem-vinda</span>
+              <span>Bem-vinda, </span>
               <strong>{user.name}</strong>
             </div>
           </Profile>
@@ -96,9 +165,9 @@ const Dashboard: React.FC = () => {
         <Schedule>
           <h1> Horários agendados </h1>
           <p>
-            <span>Hoje</span>
-            <span>Dia 06</span>
-            <span>Segunda-feira</span>
+            {isToday(selectedDate) && <span>Hoje</span>}
+            <span>{selectDateAsText}</span>
+            <span>{selectedWeekDay}</span>
           </p>
           <NextAppointment>
             <h2>Atendimento a seguir</h2>
@@ -117,32 +186,21 @@ const Dashboard: React.FC = () => {
 
           <Section>
             <h3>Manhã</h3>
-            <Appointment>
-              <span>
-                <FiClock />
-                08:30
-              </span>
-              <div>
-                <img
-                  src="https://avatars2.githubusercontent.com/u/5655363?s=460&u=1c0587ba50c4bae47bf1c8b6c6d2b95fa8968deb&v=4"
-                  alt={user.name}
-                />
-                <strong>Vick Cruz</strong>
-              </div>
-            </Appointment>
-            <Appointment>
-              <span>
-                <FiClock />
-                08:30
-              </span>
-              <div>
-                <img
-                  src="https://avatars2.githubusercontent.com/u/5655363?s=460&u=1c0587ba50c4bae47bf1c8b6c6d2b95fa8968deb&v=4"
-                  alt={user.name}
-                />
-                <strong>Vick Cruz</strong>
-              </div>
-            </Appointment>
+            {morningAppointments.map(appointment => (
+              <Appointment>
+                <span>
+                  <FiClock />
+                  08:30
+                </span>
+                <div>
+                  <img
+                    src="https://avatars2.githubusercontent.com/u/5655363?s=460&u=1c0587ba50c4bae47bf1c8b6c6d2b95fa8968deb&v=4"
+                    alt={appointment.user.name}
+                  />
+                  <strong>{appointment.user.name}</strong>
+                </div>
+              </Appointment>
+            ))}
           </Section>
           <Section>
             <h3>Tarde</h3>
@@ -170,8 +228,8 @@ const Dashboard: React.FC = () => {
               available: { daysOfWeek: [1, 2, 3, 4, 5] },
             }}
             onMonthChange={handleMonthChange}
-            onDayClick={handleDateChange}
             selectedDays={selectedDate}
+            onDayClick={handleDateChange}
             months={[
               'Janeiro',
               'Fevereiro',
