@@ -26,7 +26,9 @@ import { useAuth } from '../../hooks/auth';
 interface ProfileFormData {
   name: string;
   email: string;
+  old_password: string;
   password: string;
+  password_confirmation: string;
 }
 
 const Profile: React.FC = () => {
@@ -46,16 +48,48 @@ const Profile: React.FC = () => {
           email: Yup.string()
             .required('Email obrigatório')
             .email('Digite um email válido'),
-          password: Yup.string().min(6, 'No mínimo 6 dígitos'),
+          old_password: Yup.string(),
+          password: Yup.string().when('old_password', {
+            is: val => !!val.length,
+            then: Yup.string().required('Campo obrigatorio'),
+            otherwise: Yup.string(),
+          }),
+          password_confirmation: Yup.string()
+            .when('old_password', {
+              is: val => !!val.length,
+              then: Yup.string().required('Campo obrigatorio'),
+              otherwise: Yup.string(),
+            })
+            .oneOf([Yup.ref('password'), null], 'Confirmação incorreta'),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        await api.post('users', data);
+        const {
+          name,
+          email,
+          old_password,
+          password_confirmation,
+          password,
+        } = data;
 
-        history.push('/');
+        const formData = {
+          name: name,
+          email: email,
+          ...(old_password
+            ? {
+                old_password,
+                password,
+                password_confirmation,
+              }
+            : {}),
+        };
+
+        await api.put('/profile', formData);
+
+        history.push('/dashboard');
 
         addToast({
           type: 'success',
@@ -91,7 +125,7 @@ const Profile: React.FC = () => {
           addToast({
             type: 'success',
             title: 'Avatar atualizado',
-            description: 'asdas',
+            description: 'asdas ',
           });
         });
       }
