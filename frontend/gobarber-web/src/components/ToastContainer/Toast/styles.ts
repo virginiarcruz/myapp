@@ -12,7 +12,7 @@ import {
 
 interface ToastProps {
   type: 'success' | 'error' | 'info';
-  hasDescription: boolean;
+  hasDescription: number;
 }
 
 const toastTypeVariations = {
