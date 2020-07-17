@@ -21,6 +21,7 @@ import logoImg from '../../assets/logo.svg';
 import { FiPower, FiClock } from 'react-icons/fi';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
+import { Link } from 'react-router-dom';
 
 interface MonthAvailabilityItem {
   day: number;
@@ -142,8 +143,6 @@ const Dashboard: React.FC = () => {
     <Container>
       <Header>
         <HeaderContent>
-          <img src={logoImg} alt="Gobarber" />
-
           <Profile>
             <img
               src="https://avatars2.githubusercontent.com/u/5655363?s=460&u=1c0587ba50c4bae47bf1c8b6c6d2b95fa8968deb&v=4"
@@ -152,7 +151,9 @@ const Dashboard: React.FC = () => {
 
             <div>
               <span>Bem-vinda, </span>
-              <strong>{user.name}</strong>
+              <Link to="/profile">
+                <a>{user.name}</a>
+              </Link>
             </div>
           </Profile>
 
