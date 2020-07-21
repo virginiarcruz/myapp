@@ -1,5 +1,16 @@
 import React from 'react';
+import { View, Button, Vibration } from 'react-native';
 
-const Dashboard: React.FC = () => <h1>Dashboard</h1>;
+import { useAuth } from '../../hooks/auth';
+
+const Dashboard: React.FC = () => {
+  const { signOut } = useAuth();
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center' }}>
+      <Button title="Sair" onPress={signOut} />
+    </View>
+  );
+};
 
 export default Dashboard;
