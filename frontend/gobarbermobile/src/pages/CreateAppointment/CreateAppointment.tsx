@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import { useAuth } from '../../hooks/auth';
 import Icon from 'react-native-vector-icons/Feather';
 import { useRoute, useNavigation } from '@react-navigation/native';
+import api from '../../services/api';
 
 import {
   Container,
@@ -10,10 +11,26 @@ import {
   BackButton,
   HeaderTitle,
   UserAvatar,
+  ProvidersListContainer,
+  ProvidersList,
+  ProviderContainer,
+  ProviderName,
+  ProviderAvatar,
 } from './styles';
 
 interface RouteParams {
   providerId: string;
+}
+
+interface Provider {
+  id: string;
+  name: string;
+  avatar_url: string;
+}
+
+interface AvailabilityItem {
+  hour: number;
+  available: boolean;
 }
 
 const CreateAppointment: React.FC = () => {
@@ -21,12 +38,31 @@ const CreateAppointment: React.FC = () => {
   const route = useRoute();
   const { goBack } = useNavigation();
 
-  const { providerId } = route.params as RouteParams;
+  const routeParams = route.params as RouteParams;
+
+  const [providers, setProviders] = useState<Provider[]>([]);
+  const [selectedProvider, setSelectedProvider] = useState(
+    routeParams.providerId,
+  );
+
+  useEffect(() => {
+    api.get('providers').then(response => {
+      setProviders(response.data);
+    });
+  }, []);
+
+  const navigateBack = useCallback(() => {
+    goBack();
+  }, [goBack]);
+
+  const handleSelectProvider = useCallback((providerId: string) => {
+    setSelectedProvider(providerId);
+  }, []);
 
   return (
     <Container>
       <Header>
-        <BackButton onPress={goBack}>
+        <BackButton onPress={navigateBack}>
           <Icon name="chevron-left" size={14} color="#999591" />
         </BackButton>
 
@@ -38,6 +74,30 @@ const CreateAppointment: React.FC = () => {
           }}
         />
       </Header>
+      <ProvidersListContainer>
+        <ProvidersList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={providers}
+          keyExtractor={provider => provider.id}
+          renderItem={({ item: provider }) => (
+            <ProviderContainer
+              onPress={() => handleSelectProvider(provider.id)}
+              selected={provider.id === selectedProvider}
+            >
+              <ProviderAvatar
+                source={{
+                  uri:
+                    'https://avatars2.githubusercontent.com/u/5655363?s=460&u=1c0587ba50c4bae47bf1c8b6c6d2b95fa8968deb&v=4',
+                }}
+              />
+              <ProviderName selected={provider.id === selectedProvider}>
+                {provider.name}
+              </ProviderName>
+            </ProviderContainer>
+          )}
+        />
+      </ProvidersListContainer>
     </Container>
   );
 };
