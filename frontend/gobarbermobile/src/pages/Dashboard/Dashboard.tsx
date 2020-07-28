@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 
 import Icon from 'react-native-vector-icons/Feather';
-
+import { useNavigation } from '@react-navigation/native';
+import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
+
 import {
   Container,
   Header,
@@ -11,18 +13,16 @@ import {
   ProfileButton,
   UserAvatar,
   ProvidersList,
-  ProviderAvatar,
   ProviderContainer,
+  ProviderAvatar,
   ProviderInfo,
   ProviderName,
   ProviderMeta,
   ProviderMetaText,
   ProvidersListTitle,
 } from './styles';
-import { useNavigation } from '@react-navigation/native';
-import api from '../../services/api';
 
-interface Provider {
+export interface Provider {
   id: string;
   name: string;
   avatar_url: string;
@@ -31,25 +31,22 @@ interface Provider {
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<Provider[]>([]);
 
-  const { signOut, user } = useAuth();
-  const { navigate } = useNavigation();
+  const { user } = useAuth();
+  const navigation = useNavigation();
 
   useEffect(() => {
-    api.get('providers').then(response => {
-      setProviders(response.data);
-    });
+    api.get('providers').then((response) => setProviders(response.data));
   }, []);
 
   const navigateToProfile = useCallback(() => {
-    // navigate('Profile');
-    signOut();
-  }, [navigate]);
+    navigation.navigate('Profile');
+  }, [navigation]);
 
   const navigateToCreateAppointment = useCallback(
     (providerId: string) => {
-      navigate('CreateAppointment', { providerId });
+      navigation.navigate('CreateAppointment', { providerId });
     },
-    [navigate],
+    [navigation],
   );
 
   return (
@@ -59,19 +56,14 @@ const Dashboard: React.FC = () => {
           Bem vindo,{'\n'}
           <UserName>{user.name}</UserName>
         </HeaderTitle>
-
         <ProfileButton onPress={navigateToProfile}>
-          <UserAvatar
-            source={{
-              uri:
-                'https://avatars2.githubusercontent.com/u/5655363?s=460&u=1c0587ba50c4bae47bf1c8b6c6d2b95fa8968deb&v=4',
-            }}
-          />
+          <UserAvatar source={{ uri: user.avatar_url }} />
         </ProfileButton>
       </Header>
+
       <ProvidersList
         data={providers}
-        keyExtractor={provider => provider.id}
+        keyExtractor={(provider) => provider.id}
         ListHeaderComponent={
           <ProvidersListTitle>Cabeleireiros</ProvidersListTitle>
         }
@@ -79,21 +71,16 @@ const Dashboard: React.FC = () => {
           <ProviderContainer
             onPress={() => navigateToCreateAppointment(provider.id)}
           >
-            <ProviderAvatar
-              source={{
-                uri:
-                  'https://avatars2.githubusercontent.com/u/5655363?s=460&u=1c0587ba50c4bae47bf1c8b6c6d2b95fa8968deb&v=4',
-              }}
-            />
+            <ProviderAvatar source={{ uri: provider.avatar_url }} />
             <ProviderInfo>
-              <ProviderName> {provider.name} </ProviderName>
+              <ProviderName>{provider.name}</ProviderName>
               <ProviderMeta>
-                <Icon name="calendar" size={14} color="#ff9000" />
-                <ProviderMetaText> Segunda à Sexta</ProviderMetaText>
+                <Icon name="calendar" size={14} color="#FF9000" />
+                <ProviderMetaText>Segunda à Sexta</ProviderMetaText>
               </ProviderMeta>
 
               <ProviderMeta>
-                <Icon name="clock" size={14} color="#ff9000" />
+                <Icon name="clock" size={14} color="#FF9000" />
                 <ProviderMetaText>8h às 18h</ProviderMetaText>
               </ProviderMeta>
             </ProviderInfo>
